@@ -111,7 +111,7 @@ export default class App extends Component {
             </button>
           </Modal>
         )}
-        {/* <Title title="Phonebook" />
+        <Title title="Phonebook" />
         <FormEl onSubmit={this.handlerFormSubmit} />
         <Filter
           title="Find contacts by name"
@@ -124,7 +124,7 @@ export default class App extends Component {
             contacts={visibleContacts}
             onDeleteContact={this.deleteContact}
           />
-        )} */}
+        )}
       </MainBox>
     );
   }
