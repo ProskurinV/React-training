@@ -5,6 +5,7 @@ import FormEl from 'components/Form/Form';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter';
 import Notiflix from 'notiflix';
+import Modal from 'components/Modal/Modal';
 
 import Title from 'components/Title/Title';
 
@@ -19,7 +20,23 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    showModal: false,
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   handlerFormSubmit = ({ name, number }) => {
     const nameToRegistr = name.toLowerCase();
@@ -71,18 +88,33 @@ export default class App extends Component {
     return contacts.find(item => item.name.toLowerCase() === name);
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, showModal } = this.state;
 
     const visibleContacts = this.getVisibleContacts();
 
     return (
       <MainBox>
-        <Title title="Phonebook" />
+        <button type="button" onClick={this.toggleModal}>
+          open modal
+        </button>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <button type="button" onClick={this.toggleModal}>
+              close modal
+            </button>
+          </Modal>
+        )}
+        {/* <Title title="Phonebook" />
         <FormEl onSubmit={this.handlerFormSubmit} />
         <Filter
           title="Find contacts by name"
-          // filter={filter}
           value={filter}
           onChange={this.onFilterChange}
         />
@@ -92,7 +124,7 @@ export default class App extends Component {
             contacts={visibleContacts}
             onDeleteContact={this.deleteContact}
           />
-        )}
+        )} */}
       </MainBox>
     );
   }
