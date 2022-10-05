@@ -6,17 +6,19 @@ const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
   componentDidMount() {
-    console.log('Modal componentDidMount');
-
-    window.addEventListener('keydown', event => {
-      if (event.code === 'Escape') {
-        this.props.onClose();
-        console.log('close');
-      }
-    });
+    window.addEventListener('keydown', this.handleKeyDown);
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    if (event.code === 'Escape') {
+      this.props.onClose();
+      console.log('close');
+    }
+  }
 
   render() {
     return createPortal(
