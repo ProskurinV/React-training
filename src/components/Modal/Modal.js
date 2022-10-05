@@ -6,19 +6,29 @@ const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keydown', event => {
+      if (event.code === 'Escape') {
+        this.props.onClose();
+        console.log('close');
+      }
+    });
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keydown', event => {
+      if (event.code === 'Escape') {
+        this.props.onClose();
+        console.log('close');
+      }
+    });
   }
 
-  handleKeyDown(event) {
-    if (event.code === 'Escape') {
-      this.props.onClose();
-      console.log('close');
-    }
-  }
+  // handleKeyDown(event) {
+  //   if (event.code === 'Escape') {
+  //     this.props.onClose();
+  //     console.log('close');
+  //   }
+  // }
 
   render() {
     return createPortal(
