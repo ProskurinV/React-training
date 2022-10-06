@@ -6,6 +6,8 @@ import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter';
 import Notiflix from 'notiflix';
 import Modal from 'components/Modal/Modal';
+import IconBtn from 'components/IconBtn/IconBtn';
+import { ReactComponent as AddIcon } from '../icons/add.svg';
 
 import Title from 'components/Title/Title';
 
@@ -101,9 +103,10 @@ export default class App extends Component {
 
     return (
       <MainBox>
-        <button type="button" onClick={this.toggleModal}>
-          open modal
-        </button>
+        <IconBtn onClick={this.toggleModal} aria-label="addModal">
+          <AddIcon width="40" height="40" fill="#fff" />
+        </IconBtn>
+
         {showModal && (
           <Modal onClose={this.toggleModal}>
             <button type="button" onClick={this.toggleModal}>
