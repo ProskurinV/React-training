@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+// import 'yup-phone';
 import { FormBook, Input, Label, Btn, Error } from './Form.styled';
 
 let schema = yup.object().shape({
@@ -11,7 +12,9 @@ let schema = yup.object().shape({
       "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     )
     .required('Please, enter name'),
+
   number: yup
+    // .phone()
     .string()
     .min(6)
     .max(16)
@@ -21,6 +24,8 @@ let schema = yup.object().shape({
     )
     .required('Please, enter correct number'),
 });
+
+// const phoneSchema = yup.string().phone().required();
 
 const initialValues = {
   name: '',
